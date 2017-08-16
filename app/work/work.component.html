@@ -1,0 +1,204 @@
+<form #workForm="ngForm" class="editForm" novalidate>
+    <div class="form-horizontal">
+        <div class="tab-pane fade in active">
+            <h4 class="head text-center">{{title}}</h4>
+            <br/>
+
+            <div id="inl" class='row'>
+                <div class='col-xs-offset-1 col-xs-10 col-sm-offset-5 col-sm-6'>
+                    <div class="form-group">
+                        <h4> Services médicaux </h4>
+                        <hr>
+                        <div>
+                            <label class="control control--radio">
+                                <input type="radio" #service="ngModel" required name="service" [(ngModel)]="parcoursObject.service" value="Radiologie">
+                                Service Radiologie
+                                <div class="control__indicator"></div>
+                            </label>
+                        </div>
+                        <div>
+                            <label class="control control--radio">
+                                <input type="radio" #service="ngModel" required name="service" [(ngModel)]="parcoursObject.service" value="ORL">
+                                Service ORL
+                                <div class="control__indicator"></div>
+                            </label>
+                        </div>
+                            <div *ngIf="parcoursObject.service==='Radiologie'">
+                                <br>
+                                <h4> Examens médicaux </h4>
+                                <hr>
+                            <form [formGroup]="myForm">
+                                <div *ngFor="let exam of cardioExams">
+                                <label class="control control--checkbox">
+                                    <input  type="checkbox" (change)="onExamChange(exam.test, $event.target.checked)"> {{exam.test}}<br>
+                                    <div class="control__indicator"></div>
+                                </label>
+                                </div>
+                            </form>
+                            </div>
+
+                                <!-- Handling another service -->
+
+                            <div *ngIf="parcoursObject.service==='ORL'">
+                                <br>
+                                <h4> Examens médicaux </h4>
+                                <hr>
+                                <form [formGroup]="myForm">
+                                    <div *ngFor="let exam of orlExams">
+                                        <label class="control control--checkbox">
+                                            <!--<input type="checkbox" (change)="onChange('exams', data.test, $event.target.checked)"> {{data.test}}<br>-->
+                                            <input type="checkbox" (change)="onExamChange(exam.test, $event.target.checked)"> {{exam.test}}<br>
+                                            <div class="control__indicator"></div>
+                                        </label>
+                                    </div>
+                                </form>
+                            </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="inr" class='row'>
+                <div class='col-xs-offset-1 col-xs-10 col-sm-offset-5 col-sm-6'>
+                    <div class="form-group">
+                        <h4> Laboratoires d'analyses</h4>
+                        <hr>
+                        <div>
+                            <label class="control control--radio">
+                                <input type="radio" #laboratoire="ngModel" required name="laboratoire" [(ngModel)]="parcoursObject.laboratoire" value="Sanguins">
+                                Laboratoire de sang
+                                <div class="control__indicator"></div>
+                            </label>
+                        </div>
+                        <div>
+                            <label class="control control--radio">
+                                <input type="radio" #laboratoire="ngModel" required name="laboratoire" [(ngModel)]="parcoursObject.laboratoire" value="Chimique">
+                                Laboratoire chimique
+                                <div class="control__indicator"></div>
+                            </label>
+                        </div>
+                        <div *ngIf="parcoursObject.laboratoire==='Sanguins'">
+                            <br>
+                            <h4> Analyses </h4>
+                            <hr>
+                            <form [formGroup]="myForm">
+                                <div class="checkbox" *ngFor="let al of analysesSanguines">
+                                    <label class="control control--checkbox">
+                                    <input type="checkbox" (change)="onAnalysesChange(al.test, $event.target.checked)"> {{al.test}}<br>
+                                    <div class="control__indicator"></div>
+                                    </label>
+                                </div>
+                            </form>
+                        </div>
+                        <div *ngIf="parcoursObject.laboratoire==='Chimique'">
+                            <br>
+                            <h4> Analyses </h4>
+                            <hr>
+                            <form [formGroup]="myForm">
+                                <div class="checkbox" *ngFor="let al of analysesChimiques">
+                                    <label class="control control--checkbox">
+                                    <input type="checkbox" (change)="onAnalysesChange(al.test, $event.target.checked)"> {{al.test}}<br>
+                                    <div class="control__indicator"></div>
+                                    </label>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                    <h4> Tests et analyses choisis </h4>
+                    <hr>
+                    <pre>Test values : {{myForm.value | json}}</pre>
+                </div>
+            </div>
+
+            <div class="form-group text-center space-20">
+                <button uiSref="personal" class="btn btn-outline-rounded btn-default" (click)="save(workForm)">
+                    <span style="margin-right:10px;" class="glyphicon glyphicon-arrow-left"></span>
+                    Previous
+                </button>
+                <button uiSref="rdv" class="btn btn-outline-rounded btn-info" [disabled]="!workForm.valid" (click)="save(workForm)">
+                    Next
+                    <span style="margin-left:10px;" class="glyphicon glyphicon-arrow-right"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+
+<!--
+
+                       A mix of Radio buttons and Checkboxes
+
+
+                       <div class="radio">
+                            <label>
+                                <input type="radio" #work="ngModel" required name="work" [(ngModel)]="workobject.work" value="Deploy">
+                                Deploy
+                            </label>
+                        </div>-->
+
+<!--                        <div class="form-group">
+                            <h4>Select your programming skills</h4>
+                            <div>
+                                <label>
+                                    <input type="checkbox" #program="ngModel" required [(ngModel)]="workobject.program" value="Angular"/>
+                                    Angular
+                                </label>
+                            </div>
+                        </div>-->
+
+<!--                        *ngIf="workobject.work==='Code'"-->
+
+<!--                      <div class="input-controls" *ngIf="workobject.work==='Code'">
+                         <h4>Select your programming skills</h4>
+                         <div>
+                             <label>
+                                 <input #program="ngModel" required type="checkbox" [(ngModel)]="workobject.program" value="Angular"/>
+                                 Angular
+                             </label>
+                         </div>
+                        <div>
+                             <label>
+                                 <input #program type="checkbox" (change)="javascript = program.checked" />
+                                 JavaScript
+                             </label>
+                         </div>
+                         <div>
+                             <label>
+                                 <input #program type="checkbox" (change)="csharp = program.checked" />
+                                 C#
+                             </label>
+                         </div>
+                     </div>-->
+<!--                        <div class="Chosen">
+                            Selected Skills:
+                            <ul>
+                                <li *ngIf="angular">Angular</li>
+                                <li *ngIf="javascript">JavaScript</li>
+                                <li *ngIf="csharp">C#</li>
+                            </ul>
+                        </div>-->
+
+<!--
+
+                            the example which works with radio buuttons
+
+                            <div *ngIf="workobject.work==='Code'">
+                                <h4>Select your programming skills</h4>
+                                <label>
+                                    <input type="checkbox" #program="ngModel" required [(ngModel)]="workobject.program" value="Angular"/>
+                                    Angular
+                                </label>
+                                <label>
+                                    <input type="checkbox" #program="ngModel" required [(ngModel)]="workobject.program" value="Java"/>
+                                    Java
+                                </label>
+                            </div>-->

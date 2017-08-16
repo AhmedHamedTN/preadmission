@@ -1,0 +1,20 @@
+<navbar-cmp></navbar-cmp>
+<section style="background: white;">
+        <div class="board center-block">
+            <!-- Navigation Area (Circular Tabs) -->
+            <msw-navbar></msw-navbar>
+            <!-- End Navigation Area (Circular Tabs) -->
+
+            <!-- Content Area -->
+            <div class="tab-content">
+                <!-- Nested view  -->
+                <ui-view></ui-view>
+            </div>
+            <!-- End Content Area -->
+        </div>
+
+        <!-- For Debugging: show our valid formData -->
+<!--
+        <pre>{{ formData | json }}</pre>
+-->
+</section>

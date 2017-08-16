@@ -1,0 +1,132 @@
+<div class="tab-pane fade in active">
+    <h3 class="head text-center">{{title}}</h3>
+<!--    <h4 class="text-center">
+        Made with <i class="fa fa-heart heart" style="color:#f48260;"></i> by <a href="https://www.cc28tech.com" target="_blank">Cathy Wun</a>. Check out the tutorials <a href="https://www.cc28tech.com/introducing-angular-ui-router-series" target="_blank">here.</a>
+    </h4>-->
+    <p class="narrow text-center">
+        Veuillez vérifier les données de formulaire:
+    </p>
+    <div class='row'>
+        <div class='col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-8 col-md-offset-4 col-md-8'>
+            <div class="row">
+                <div class='col-xs-3 col-sm-2'>
+                    <div class="form-group">
+                        <label class="control-label">Nom : </label>
+                    </div>
+                </div>
+                <div class='col-xs-9 col-sm-10'>
+                    {{formData.firstName + ' ' + formData.lastName}}
+                </div>
+            </div>
+            <div class="row">
+                <div class='col-xs-3 col-sm-2'>
+                    <div class="form-group">
+                        <label class="control-label">Email: </label>
+                    </div>
+                </div>
+                <div class='col-xs-9 col-sm-10'>
+                    {{formData.email}}
+                </div>
+           </div>
+            <div class="row">
+                <div class='col-xs-3 col-sm-2'>
+                    <div class="form-group">
+                        <label class="control-label">Date de Naissance : </label>
+                    </div>
+                </div>
+                <div class='col-xs-9 col-sm-10'>
+                    {{formData.dateN}}
+                </div>
+            </div>
+            <div class="row">
+                <div class='col-xs-3 col-sm-2'>
+                    <div class="form-group">
+                        <label class="control-label">Service : </label>
+                    </div>
+                </div>
+                <div class='col-xs-9 col-sm-10'>
+                    {{formData.service}}
+                </div>
+           </div>
+            <div class="row">
+                <div class='col-xs-3 col-sm-2'>
+                    <div class="form-group">
+                        <label class="control-label">Examens : </label>
+                    </div>
+                </div>
+                <div class='col-xs-9 col-sm-10'>
+<!--
+                    <p *ngFor="let e of formData.examensArray">{{e.value}}</p>
+-->
+                    {{formData.examensArray.toString() }}
+                </div>
+            </div>
+            <div class="row">
+                <div class='col-xs-3 col-sm-2'>
+                    <div class="form-group">
+                        <label class="control-label">Laboratoire : </label>
+                    </div>
+                </div>
+                <div class='col-xs-9 col-sm-10'>
+                    {{formData.laboratoire}}
+                </div>
+            </div>
+            <div class="row">
+                <div class='col-xs-3 col-sm-2'>
+                    <div class="form-group">
+                        <label class="control-label">Analyses : </label>
+                    </div>
+                </div>
+                <div class='col-xs-9 col-sm-10'>
+                    {{formData.analysesArray.toString()}}
+                </div>
+            </div>
+           <div class="row">
+                <div class='col-xs-3 col-sm-2'>
+                    <div class="form-group">
+                        <label class="control-label">Address: </label>
+                    </div>
+                </div>
+                <div class='col-xs-9 col-sm-10'>
+                    {{formData.street}}
+                    <br/>
+                    {{formData.city + ' ' + formData.state + ' ' + formData.zip}}
+                </div>
+            </div>
+            <div class="row">
+                <div class='col-xs-3 col-sm-2'>
+                    <div class="form-group">
+                        <label class="control-label">Informations RDV: </label>
+                    </div>
+                </div>
+                <div class='col-xs-9 col-sm-10'>
+                    {{formData.dateRDV}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <h4 class="text-center">
+        Fait avec <i class="fa fa-heart heart" style="color:#f48260;"></i> par <strong>ADDIXO</strong>
+    </h4>
+    <div class="text-center">
+<!--
+        <button class="btn btn-success btn-outline-rounded" [disabled]="!isFormValid" (click)="submit()"> Valider <span style="margin-left:10px;" class="glyphicon glyphicon-arrow-right"></span></button>
+-->
+        <button type="button" class="btn btn-success btn-outline-rounded" (click)="modal.open()">Valider <span style="margin-left:10px;" class="glyphicon glyphicon-arrow-right"></span></button>
+        <modal #modal>
+            <modal-header [show-close]="true">
+                <h4 class="modal-title">Confirmer l'envoi de votre demande </h4>
+            </modal-header>
+            <modal-body>
+                Les données que vous avez fournies seront transférées en toute sécurité aux serveurs SIH. Nous vous aviserons très bientôt. Merci
+            </modal-body>
+            <modal-footer>
+                <button type="button" class="btn btn-inverse" data-dismiss="modal" (click)="modal.dismiss()" uiSref="personal">Annuler</button>
+                <button type="button" class="btn btn-primary" (click)="getBackHome()" uiSref="personal">Confirmer</button>
+            </modal-footer>
+<!--
+            <modal-footer [show-default-buttons]="true"></modal-footer>
+-->
+        </modal>
+    </div>
+</div>

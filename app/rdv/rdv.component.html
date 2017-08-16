@@ -1,0 +1,108 @@
+<form #addressForm="ngForm" class="editForm" novalidate>
+    <div class="tab-pane fade in active">
+        <h4 class="head text-center">{{title}}</h4>
+        <br/>
+        <div class='row'>
+            <div class='col-xs-offset-1 col-xs-10 col-sm-offset-1 col-sm-10'>
+                <div class="row">
+                    <div class='col-xs-12 col-sm-6'>
+                        <div class="form-group">
+                            <label class="control-label" for="medpresc">Médecin prescripteur</label>
+                            <input class="form-control input-md" #medpresc="ngModel" required id="medpresc" name="medpresc" type="text" placeholder="Médecin prescripteur" [(ngModel)]="rdv.medPresc">
+                            <div class="alert alert-danger" [hidden]="medpresc.valid">Médecin is required</div>
+                        </div>
+                    </div>
+                    <div class='col-xs-12 col-sm-6'>
+                        <div class="form-group">
+                            <label class="control-label" for="daterdv">Date RDV</label>
+                            <input class="form-control input-md" #daterdv="ngModel" required id="daterdv" name="daterdv" type="datetime-local" placeholder="date de RDV" [(ngModel)]="rdv.dateRDV">
+                            <div class="alert alert-danger" [hidden]="daterdv.valid">Veuileez choisir une date</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-xs-12 col-sm-12'>
+                        <div class="form-group">
+                            <label class="control-label" for="note">Notes</label>
+                            <textarea class="form-control input-md" #note="ngModel" name="note" id="note" placeholder="Du texte libre ici ..." cols="70" rows="10" [(ngModel)]="rdv.note"></textarea>
+                            <!--
+                                                        <input class="form-control input-md" #note="ngModel" required id="medpresc" name="medpresc" type="text" placeholder="Médecin prescripteur" [(ngModel)]="address.medPresc">
+                                                        <div class="alert alert-danger" [hidden]="note.valid">La note est obligatoire</div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                        <label class="control-label" for="cin">Charger une piéce d'identité <small>(CIN, Passeport, Permis de conduite)</small></label>
+                        <ul>
+                            <li> Piéces d'identité</li>
+                            <li> Copies des examens antérieurs</li>
+                            <li> Copies des analyses antérieures</li>
+                            <li> Autres</li>
+                        </ul>
+                        <!-- File input for upload without using the plugin. -->
+                        <input id="cin" name="cin" type="file" (change)="fileChangeEvent($event)" placeholder="Charger fichier ..." multiple/>
+                        <!--<br>
+                        <label class="control-label" for="exam">Charger une copie d'un examen antérieur</label>
+                        &lt;!&ndash; File input for upload without using the plugin. &ndash;&gt;
+                        <input id="exam" name="exam" type="file" (change)="fileChangeEvent($event)" placeholder="Charger fichier ..." />
+                        <br>
+                        <label class="control-label" for="analyse">Charger une copie d'analyse antérieure</label>
+                        &lt;!&ndash; File input for upload without using the plugin. &ndash;&gt;
+                        <input id="analyse" name="analyse" type="file" (change)="fileChangeEvent($event)" placeholder="Charger fichier ..." />-->
+                        <br>
+                        <!-- button to trigger the file upload when submitted -->
+                        <button type="button" class="btn btn-success btn-s" (click)="upload()">
+                            <i class="glyphicon glyphicon-open-file"></i>&nbsp;Charger
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!--            <div class='col-xs-offset-1 col-xs-10 col-sm-offset-1 col-sm-10'>
+                            <div class="form-group">
+                                <label class="control-label" for="street">Street Address</label>
+                                <input class="form-control input-md" #street="ngModel" required id="street" name="street" type="text" placeholder="Street Address" [(ngModel)]="address.street">
+                                <div class="alert alert-danger" [hidden]="street.valid">Street Address is required</div>
+                            </div>
+                            <div class="row">
+                                <div class='col-xs-12 col-sm-4'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="city">City</label>
+                                        <input class="form-control input-md" #city="ngModel" required id="city" name="city" type="text" placeholder="City" [(ngModel)]="address.city">
+                                        <div class="alert alert-danger" [hidden]="city.valid">City is required</div>
+                                    </div>
+                                </div>
+                                <div class='col-xs-4 col-sm-offset-1 col-sm-3'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="state">State</label>
+                                        <input class="form-control input-md" #state="ngModel" required id="state" name="state" type="text" placeholder="State" [(ngModel)]="address.state">
+                                        <div class="alert alert-danger" [hidden]="state.valid">State is required</div>
+                                    </div>
+                                </div>
+                                <div class='col-xs-offset-1 col-xs-7 col-sm-offset-1 col-sm-3'>
+                                    <div class="form-group">
+                                        <label class="control-label" for="zip">Zip</label>
+                                        <input class="form-control input-md" #zip="ngModel" required id="zip" name="zip" type="text" placeholder="Zip" [(ngModel)]="address.zip">
+                                        <div class="alert alert-danger" [hidden]="zip.valid">Zip is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
+
+            <div class="form-group text-center">
+                <button uiSref="parcours" class="btn btn-outline-rounded btn-default" (click)="save(addressForm)">
+                    <span style="margin-right:10px;" class="glyphicon glyphicon-arrow-left"></span>
+                    Retour
+                </button>
+                <button uiSref="result" class="btn btn-outline-rounded btn-info" [disabled]="!addressForm.valid" (click)="save(addressForm)">
+                    Suivant
+                    <span style="margin-left:10px;" class="glyphicon glyphicon-arrow-right"></span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</form>
