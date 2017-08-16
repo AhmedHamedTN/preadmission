@@ -42,6 +42,9 @@
                         </ul>
                         <!-- File input for upload without using the plugin. -->
                         <input id="cin" name="cin" type="file" (change)="fileChangeEvent($event)" placeholder="Charger fichier ..." multiple/>
+                        <div>
+                            <p>{{rdv.documents.toString()}}</p>
+                        </div>
                         <!--<br>
                         <label class="control-label" for="exam">Charger une copie d'un examen antérieur</label>
                         &lt;!&ndash; File input for upload without using the plugin. &ndash;&gt;
