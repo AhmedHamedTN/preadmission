@@ -46,6 +46,31 @@ export class RDVComponent implements OnInit {
     upload() {
         const formData: any = new FormData();
         const files: Array<File> = this.filesToUpload;
+        //console.log(files);
+        const chosenf = <FormArray> this.myForm.controls["chosenfiles"];
+        // iterate over the number of files
+        for(let i =0; i < files.length; i++){
+            formData.append("uploads[]", files[i], files[i]['name']);
+            // store file name in an array
+            chosenf.push(new FormControl(files[i]['name']));
+        }
+        //console.log("chosenf value " + chosenf.value);
+        //this.rdv.documents = chosenf.value;
+        //console.log("done storing values in chosenF");
+        // formData.append("uploads[]", files[0], files[0]['name']);
+        // this.address.documents = files.values;
+        this.http.post('http://localhost:3003/api/upload', formData)
+            .map(files => files.json())
+            .subscribe(files => console.log('The files are : ', files));
+
+        // this.address.documents = files;
+        //console.log("this.address.documents has :  ", this.rdv.documents);
+    }
+
+    fileChangeEvent(fileInput: any) {
+        this.filesToUpload = <Array<File>>fileInput.target.files;
+        const formData: any = new FormData();
+        const files: Array<File> = this.filesToUpload;
         console.log(files);
         const chosenf = <FormArray> this.myForm.controls["chosenfiles"];
         // iterate over the number of files
@@ -56,19 +81,7 @@ export class RDVComponent implements OnInit {
         }
         console.log("chosenf value " + chosenf.value);
         this.rdv.documents = chosenf.value;
-        console.log("done storing values in chosenF");
-        // formData.append("uploads[]", files[0], files[0]['name']);
-        // this.address.documents = files.values;
-        this.http.post('http://localhost:3003/api/upload', formData)
-            .map(files => files.json())
-            .subscribe(files => console.log('The files are : ', files));
-
-        // this.address.documents = files;
-        console.log("this.address.documents has :  ", this.rdv.documents);
-    }
-
-    fileChangeEvent(fileInput: any) {
-        this.filesToUpload = <Array<File>>fileInput.target.files;
+        console.log("done storing values in this.rdv.documents");
         // console.log("everytime files are selected" + this.filesToUpload.values);
         //this.product.photo = fileInput.target.files[0]['name'];
     }
